@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 import threading
 import time
+from random import randint
 
 CHROME_PROFILE_PATH = r"C:\Users\Global Computers\AppData\Local\Google\Chrome\User Data"
 URL = "https://orteil.dashnet.org/cookieclicker/"
@@ -17,6 +18,11 @@ with open("products_click_sleep_time.txt", mode="r") as file:
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument(f"user-data-dir={CHROME_PROFILE_PATH}")
 chrome_options.add_argument("--profile-directory=Default")
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-gpu")
 
 driver = webdriver.Chrome(options=chrome_options)
 driver.get(url=URL)
@@ -37,15 +43,17 @@ def click_cookie() -> None:
         except StaleElementReferenceException:
             cookie = driver.find_element(By.ID, "bigCookie")
         
-        UPGRADES_CLICK_SLEEP_TIME += SLEEP_TIME
-        PRODUCTS_CLICK_SLEEP_TIME += SLEEP_TIME
+        i = randint(0, 100)
+        if i == 50:
+            UPGRADES_CLICK_SLEEP_TIME += 1
+            PRODUCTS_CLICK_SLEEP_TIME += 1
         
         with open("upgrades_click_sleep_time.txt", mode="w") as file:
             file.write(str(UPGRADES_CLICK_SLEEP_TIME))
         with open("products_click_sleep_time.txt", mode="w") as file:
             file.write(str(PRODUCTS_CLICK_SLEEP_TIME))
         
-        time.sleep(0.05)
+        # time.sleep(SLEEP_TIME)
 
 
 def buy_upgrades() -> None:
