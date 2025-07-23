@@ -16,7 +16,7 @@ with open("products_click_sleep_time.txt", mode="r") as file:
     PRODUCTS_CLICK_SLEEP_TIME = float(file.read())
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument(f"user-data-dir={CHROME_PROFILE_PATH}")
+chrome_options.add_argument(f"--user-data-dir={CHROME_PROFILE_PATH}")
 chrome_options.add_argument("--profile-directory=Default")
 chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--no-sandbox")
