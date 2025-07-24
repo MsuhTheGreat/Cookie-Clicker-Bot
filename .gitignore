@@ -1,2 +1,4 @@
 *venv
-*.txt
+products_click_sleep_time.txt
+.env
+upgrades_click_sleep_time.txt
